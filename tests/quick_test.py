@@ -8,7 +8,11 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 import torchvision
 import torchvision.transforms as transforms
-from architectures import ArchitectureWrapper, create_transformer_baseline
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from nas_hgm.architectures import ArchitectureWrapper, create_transformer_baseline
 import json
 import time
 

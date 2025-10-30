@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import random
 import copy
-from guided_sampling import GuidedBottleneck, create_guided_attention
+from .guided_sampling import GuidedBottleneck, create_guided_attention
 
 
 # ============================================================================

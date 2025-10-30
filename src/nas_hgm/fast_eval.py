@@ -445,7 +445,7 @@ if __name__ == "__main__":
     print("Testing Fast Evaluation System...\n")
 
     # Test analytical scoring
-    from architectures import create_bottleneck_arch, create_transformer_baseline
+    from .architectures import create_bottleneck_arch, create_transformer_baseline
 
     spec1 = create_bottleneck_arch(dim=64, bottleneck=8)
     spec2 = create_transformer_baseline(dim=64)

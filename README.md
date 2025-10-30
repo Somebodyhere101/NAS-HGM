@@ -119,16 +119,27 @@ python arch_search.py [OPTIONS]
 
 ## Architecture
 
-### Core Files
+### Project Structure
 
 ```
-arch_search.py          # Main HGM search loop
-architectures.py        # Search space + primitive synthesis
-compression_eval.py     # Zero-training compression metrics
-trainable_eval.py       # Zero-shot trainability prediction
-batch_eval.py           # Parallel batch evaluation
-guided_sampling.py      # Guided attention mechanisms
-quick_test.py           # Validation test script
+NAS-HGM/
+├── src/nas_hgm/           # Main source package
+│   ├── arch_search.py     # Main HGM search loop
+│   ├── architectures.py   # Search space + primitive synthesis
+│   ├── compression_eval.py # Zero-training compression metrics
+│   ├── trainable_eval.py  # Zero-shot trainability prediction
+│   ├── batch_eval.py      # Parallel batch evaluation
+│   ├── fast_eval.py       # Fast evaluation with learned predictors
+│   └── guided_sampling.py # Guided attention mechanisms
+├── tests/                 # Test suite
+│   └── quick_test.py      # Validation test script
+├── docs/                  # Documentation
+│   └── CHANGELOG.md       # Version history
+├── arch_search.py         # Entry point (convenience wrapper)
+├── README.md              # This file
+├── CONTRIBUTING.md        # Contribution guidelines
+├── requirements.txt       # Python dependencies
+└── LICENSE                # MIT License
 ```
 
 ### Primitive Synthesis
@@ -187,7 +198,7 @@ If you use this work, please cite:
 ```bibtex
 @software{nas-hgm-2025,
   title={Neural Architecture Search via Huxley-Gödel Machine with Unbounded Primitive Synthesis},
-  author={Somebodyhere101},
+  author={[Your Name]},
   year={2025},
   url={https://github.com/Somebodyhere101/NAS-HGM},
   version={3.0.0}
@@ -205,7 +216,7 @@ If you use this work, please cite:
 
 @software{generalizationb-2025,
   title={GeneralizationB: Gradient-Induced Compression in Neural Networks},
-  author={Somebodyhere101},
+  author={[Author]},
   year={2025},
   url={https://github.com/Somebodyhere101/GeneralizationB}
 }

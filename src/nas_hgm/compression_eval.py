@@ -241,7 +241,7 @@ def evaluate_architecture_fast(model, inject_rank=3, data_rank=4, seed=42, inclu
 
     if include_trainability:
         try:
-            from trainable_eval import evaluate_trainability
+            from .trainable_eval import evaluate_trainability
             trainability_metrics = evaluate_trainability(model, device=device, verbose=False)
             trainability_score = trainability_metrics.get('trainability_score', 0.0)
         except Exception as e:

@@ -275,7 +275,7 @@ def evaluate_trainability(backbone, device='cuda', verbose=False):
 if __name__ == "__main__":
     print("Testing Trainability Evaluation System...\n")
 
-    from architectures import create_transformer_baseline, ArchitectureWrapper
+    from .architectures import create_transformer_baseline, ArchitectureWrapper
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Using device: {device}\n")

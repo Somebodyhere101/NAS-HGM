@@ -35,8 +35,8 @@ import numpy as np
 import time
 from typing import Dict, List, Any, Optional
 from collections import defaultdict
-from architectures import ArchitectureWrapper, build_model_from_spec
-from compression_eval import (
+from .architectures import ArchitectureWrapper, build_model_from_spec
+from .compression_eval import (
     generate_structured_data,
     measure_rank,
     check_bottleneck_exists,
@@ -149,7 +149,7 @@ class BatchEvaluator:
     def _get_trainability_data(self):
         """Get or create cached trainability data"""
         if self._trainability_data is None:
-            from trainable_eval import get_trainability_data
+            from .trainable_eval import get_trainability_data
             self._trainability_data = get_trainability_data()
         return self._trainability_data
 
@@ -241,7 +241,7 @@ class BatchEvaluator:
         Returns:
             List of trainability scores
         """
-        from trainable_eval import (
+        from .trainable_eval import (
             QuickClassifier,
             measure_gradient_snr_fast,
             measure_learning_speed
@@ -424,7 +424,7 @@ def generate_batch_mutations(parent_spec, n=128):
     Returns:
         List of mutated specs
     """
-    from architectures import mutate_architecture
+    from .architectures import mutate_architecture
     import multiprocessing as mp
 
     # TODO: On DGX Spark, use ARM cores efficiently
@@ -448,7 +448,7 @@ def generate_batch_mutations(parent_spec, n=128):
 if __name__ == "__main__":
     print("Testing Batch Evaluation System...\n")
 
-    from architectures import create_transformer_baseline, create_bottleneck_arch
+    from .architectures import create_transformer_baseline, create_bottleneck_arch
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Using device: {device}")
