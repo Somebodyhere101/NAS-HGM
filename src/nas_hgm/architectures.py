@@ -955,7 +955,7 @@ if __name__ == "__main__":
     # Test mutations
     print("\nTesting mutations:")
     for mutation in ['add_bottleneck', 'add_sparse_layer', 'reduce_rank']:
-        mutated = mutate_architecture(spec, mutation)
+        mutated, _ = mutate_architecture(spec, mutation)
         print(f"\n{mutation}: {len(mutated['blocks'])} blocks")
 
     print("\n✅ Architecture system ready!")

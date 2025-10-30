@@ -433,7 +433,7 @@ def generate_batch_mutations(parent_spec, n=128):
     mutations = []
     for _ in range(n):
         try:
-            mutated = mutate_architecture(parent_spec)
+            mutated, _ = mutate_architecture(parent_spec)
             mutations.append(mutated)
         except Exception:
             # Skip failed mutations
