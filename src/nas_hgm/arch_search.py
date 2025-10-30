@@ -1065,7 +1065,7 @@ def compare_with_baselines(hgm_spec):
     """Compare HGM-discovered architecture with standard baselines"""
 
     print("\n" + "=" * 60)
-    print("📈 COMPARING WITH BASELINES")
+    print("COMPARING WITH BASELINES")
     print("=" * 60)
 
     baselines = {
