@@ -12,6 +12,30 @@ import json
 import hashlib
 
 
+def sanitize_metrics(metrics):
+    """
+    Convert all metric values to JSON-serializable Python types.
+    Handles torch tensors, numpy types, and other non-serializable objects.
+    """
+    sanitized = {}
+    for key, value in metrics.items():
+        if isinstance(value, torch.Tensor):
+            sanitized[key] = float(value.item() if value.numel() == 1 else value.mean().item())
+        elif isinstance(value, (np.integer, np.floating)):
+            sanitized[key] = float(value)
+        elif isinstance(value, np.ndarray):
+            sanitized[key] = float(value.mean()) if value.size > 1 else float(value)
+        elif isinstance(value, (int, float, str, bool, type(None))):
+            sanitized[key] = value
+        else:
+            # Try to convert to float, fallback to string
+            try:
+                sanitized[key] = float(value)
+            except:
+                sanitized[key] = str(value)
+    return sanitized
+
+
 def spec_to_seed(spec):
     """
     Create deterministic seed from architecture spec.
@@ -276,7 +300,7 @@ def evaluate_architecture_fast(model, inject_rank=3, data_rank=4, seed=42, inclu
         result['learning_speed'] = trainability_metrics.get('learning_speed', 0.0)
         result['feature_separability'] = trainability_metrics.get('feature_separability', 0.0)
 
-    return result
+    return sanitize_metrics(result)
 
 
 def estimate_cmp_from_geometry(model):

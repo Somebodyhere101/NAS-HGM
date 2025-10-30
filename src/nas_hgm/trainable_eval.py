@@ -265,7 +265,9 @@ def evaluate_trainability(backbone, device='cuda', verbose=False):
 
     results['trainability_time_ms'] = (time.time() - start_time) * 1000
 
-    return results
+    # Import sanitize function from compression_eval
+    from .compression_eval import sanitize_metrics
+    return sanitize_metrics(results)
 
 
 # ============================================================================

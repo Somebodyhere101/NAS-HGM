@@ -710,7 +710,8 @@ class ArchitectureHGM:
                     # Create metrics dict
                     if method == 'predicted' or method == 'analytical_reject':
                         # Estimated metrics
-                        metrics = {
+                        from .compression_eval import sanitize_metrics
+                        metrics = sanitize_metrics({
                             'combined_score': score,  # Use predicted score as combined
                             'compression_score': score,
                             'trainability_score': 0.5,  # Neutral for predicted
@@ -722,7 +723,7 @@ class ArchitectureHGM:
                             'output_rank': 8,
                             'input_rank': 8,
                             'inference_time_ms': 1.0 if method == 'analytical_reject' else 0.1,
-                        }
+                        })
                     else:
                         # Real evaluation returns full metrics
                         metrics = real_eval_fn(node.spec)
