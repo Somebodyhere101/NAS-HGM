@@ -40,7 +40,8 @@ from .compression_eval import (
     generate_structured_data,
     measure_rank,
     check_bottleneck_exists,
-    spec_to_seed
+    spec_to_seed,
+    sanitize_metrics
 )
 
 
@@ -203,15 +204,15 @@ class BatchEvaluator:
                     0.2 * bottleneck_score
                 )
 
-                results.append({
-                    'compression_score': float(compression_score),
-                    'rank_reduction': float(rank_reduction),
-                    'bottleneck_score': float(bottleneck_score),
-                    'output_compression': float(output_compression),
-                    'output_rank': int(output_rank),
-                    'input_rank': int(input_rank),
-                    'inference_time_ms': 1.0,  # Approximate for batch mode
-                })
+                results.append(sanitize_metrics({
+                    'compression_score': compression_score,
+                    'rank_reduction': rank_reduction,
+                    'bottleneck_score': bottleneck_score,
+                    'output_compression': output_compression,
+                    'output_rank': output_rank,
+                    'input_rank': input_rank,
+                    'inference_time_ms': 1.0,
+                }))
 
             except Exception as e:
                 # Log the error for debugging
@@ -275,11 +276,11 @@ class BatchEvaluator:
                     0.5 * learning_speed * 5
                 )
 
-                results.append({
-                    'trainability_score': float(np.clip(trainability_score, 0, 1)),
-                    'gradient_snr': float(snr),
-                    'learning_speed': float(learning_speed),
-                })
+                results.append(sanitize_metrics({
+                    'trainability_score': np.clip(trainability_score, 0, 1),
+                    'gradient_snr': snr,
+                    'learning_speed': learning_speed,
+                }))
 
             except Exception as e:
                 # Log the error for debugging
@@ -324,11 +325,11 @@ class BatchEvaluator:
                     0.5 * comp['compression_score'] +
                     0.5 * train['trainability_score']
                 )
-                result = {
-                    'combined_score': float(combined_score),
+                result = sanitize_metrics({
+                    'combined_score': combined_score,
                     **comp,
                     **train
-                }
+                })
             else:
                 result = {
                     'combined_score': 0.0,
