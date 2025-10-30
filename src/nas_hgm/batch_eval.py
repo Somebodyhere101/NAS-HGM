@@ -205,12 +205,12 @@ class BatchEvaluator:
                 )
 
                 results.append(sanitize_metrics({
-                    'compression_score': compression_score,
-                    'rank_reduction': rank_reduction,
-                    'bottleneck_score': bottleneck_score,
-                    'output_compression': output_compression,
-                    'output_rank': output_rank,
-                    'input_rank': input_rank,
+                    'compression_score': float(compression_score),
+                    'rank_reduction': float(rank_reduction),
+                    'bottleneck_score': float(bottleneck_score),
+                    'output_compression': float(output_compression),
+                    'output_rank': int(output_rank),
+                    'input_rank': int(input_rank),
                     'inference_time_ms': 1.0,
                 }))
 
@@ -277,9 +277,9 @@ class BatchEvaluator:
                 )
 
                 results.append(sanitize_metrics({
-                    'trainability_score': np.clip(trainability_score, 0, 1),
-                    'gradient_snr': snr,
-                    'learning_speed': learning_speed,
+                    'trainability_score': float(np.clip(trainability_score, 0, 1)),
+                    'gradient_snr': float(snr),
+                    'learning_speed': float(learning_speed),
                 }))
 
             except Exception as e:
@@ -326,7 +326,7 @@ class BatchEvaluator:
                     0.5 * train['trainability_score']
                 )
                 result = sanitize_metrics({
-                    'combined_score': combined_score,
+                    'combined_score': float(combined_score),
                     **comp,
                     **train
                 })
