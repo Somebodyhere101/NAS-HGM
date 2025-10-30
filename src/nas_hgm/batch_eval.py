@@ -216,7 +216,7 @@ class BatchEvaluator:
 
             except Exception as e:
                 # Log the error for debugging
-                print(f"⚠️  Compression eval failed for architecture: {str(e)[:100]}")
+                print(f"WARNING: Compression eval failed for architecture: {str(e)[:100]}")
                 results.append({
                     'compression_score': 0.0,
                     'rank_reduction': 0.0,
@@ -284,7 +284,7 @@ class BatchEvaluator:
 
             except Exception as e:
                 # Log the error for debugging
-                print(f"⚠️  Trainability eval failed for architecture: {str(e)[:100]}")
+                print(f"WARNING: Trainability eval failed for architecture: {str(e)[:100]}")
                 results.append({
                     'trainability_score': 0.0,
                     'gradient_snr': 0.0,
