@@ -209,9 +209,11 @@ If you use this work, please cite:
 
 ```bibtex
 @article{huxley2024godel,
-  title={Self-Improving Coding Agents via the Huxley-Gödel Machine},
+  title={Huxley-Gödel Machine: Human-Level Coding Agent Development by an Approximation of the Optimal Self-Improving Machine},
+  author={Wang, Wenyi and Pi{\k{e}}kos, Piotr and Li, Nanbo and Laakom, Firas and Chen, Yimeng and Ostaszewski, Mateusz and Zhuge, Mingchen and Schmidhuber, J{\"u}rgen},
   journal={arXiv preprint arXiv:2510.21614},
-  year={2024}
+  year={2024},
+  institution={King Abdullah University of Science and Technology (KAUST)}
 }
 
 @software{generalizationb-2025,
