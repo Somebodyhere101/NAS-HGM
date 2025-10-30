@@ -1,0 +1,13 @@
+# Git attributes for NAS-HGM repository
+
+# Python
+*.py linguist-language=Python
+
+# Documentation
+*.md linguist-documentation
+
+# Line endings
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
