@@ -198,7 +198,7 @@ If you use this work, please cite:
 ```bibtex
 @software{nas-hgm-2025,
   title={Neural Architecture Search via Huxley-Gödel Machine with Unbounded Primitive Synthesis},
-  author={[Your Name]},
+  author={Somebodyhere101},
   year={2025},
   url={https://github.com/Somebodyhere101/NAS-HGM},
   version={3.0.0}
@@ -216,7 +216,7 @@ If you use this work, please cite:
 
 @software{generalizationb-2025,
   title={GeneralizationB: Gradient-Induced Compression in Neural Networks},
-  author={[Author]},
+  author={Somebodyhere101},
   year={2025},
   url={https://github.com/Somebodyhere101/GeneralizationB}
 }
