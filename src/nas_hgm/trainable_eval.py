@@ -35,7 +35,9 @@ def get_trainability_data(batch_size=100):
     )
 
     # Use 500 samples (fast but representative)
-    indices = torch.randperm(len(full_dataset))[:500]
+    # Fixed seed for reproducibility
+    generator = torch.Generator().manual_seed(42)
+    indices = torch.randperm(len(full_dataset), generator=generator)[:500]
     subset = Subset(full_dataset, indices)
 
     _cached_loader = DataLoader(subset, batch_size=batch_size, shuffle=False)

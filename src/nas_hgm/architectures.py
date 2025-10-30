@@ -747,10 +747,12 @@ def mutate_architecture(spec, mutation_type=None, mutation_probs=None, max_retri
                 'num_experts': num_experts
             })
 
-        elif mut == 'add_extracted_rule' and extracted_rules is not None:
+        elif mut == 'add_extracted_rule' and extracted_rules is not None and len(extracted_rules) > 0:
             pos = random.randint(0, len(blocks))
             dim = _infer_dim(blocks, pos)
-            rule_matrix = extracted_rules[random.randint(0, len(extracted_rules) - 1)]
+            rule_tensor = extracted_rules[random.randint(0, len(extracted_rules) - 1)]
+            # Convert tensor to list for JSON serialization
+            rule_matrix = rule_tensor.detach().cpu().tolist() if isinstance(rule_tensor, torch.Tensor) else rule_tensor
             blocks.insert(pos, {
                 'type': 'extracted_rule',
                 'rule_matrix': rule_matrix,

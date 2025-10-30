@@ -87,14 +87,14 @@ def inject_compressed_patterns(model, rank=3, seed=42):
 
             # SVD decomposition
             try:
-                U, S, Vh = torch.svd(W)
+                U, S, Vh = torch.linalg.svd(W, full_matrices=False)
 
                 # Keep only top-k singular values
                 S_compressed = torch.zeros_like(S)
                 S_compressed[:rank] = S[:rank]
 
                 # Reconstruct with low rank
-                W_compressed = U @ torch.diag(S_compressed) @ Vh.t()
+                W_compressed = U @ torch.diag(S_compressed) @ Vh
 
                 # Inject compressed pattern
                 param.data = W_compressed
@@ -116,7 +116,7 @@ def measure_rank(tensor, threshold=0.95):
         tensor = tensor.reshape(orig_shape[0], -1)
 
     try:
-        _, S, _ = torch.svd(tensor)
+        _, S, _ = torch.linalg.svd(tensor, full_matrices=False)
 
         # Effective rank: number of singular values capturing 95% energy
         total_energy = S.sum()

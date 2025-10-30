@@ -27,7 +27,9 @@ def get_quick_data(n_samples=1000):
         root='./data', train=True, download=True, transform=transform
     )
 
-    indices = torch.randperm(len(dataset))[:n_samples]
+    # Fixed seed for reproducibility
+    generator = torch.Generator().manual_seed(42)
+    indices = torch.randperm(len(dataset), generator=generator)[:n_samples]
     subset = Subset(dataset, indices)
     return DataLoader(subset, batch_size=64, shuffle=True)
 
