@@ -324,6 +324,11 @@ class ExtractedRule(nn.Module):
     def __init__(self, rule_matrix, dim):
         super().__init__()
         self.dim = dim
+
+        # Convert list back to tensor if needed
+        if isinstance(rule_matrix, list):
+            rule_matrix = torch.tensor(rule_matrix, dtype=torch.float32)
+
         U, S, Vh = torch.linalg.svd(rule_matrix, full_matrices=False)
 
         k = min(dim // 4, len(S))
@@ -368,7 +373,11 @@ class SynthesizedPrimitive(nn.Module):
         self.dim = dim
         self.primitive_id = primitive_id
 
-        rule = rule_matrix.float() if rule_matrix.dtype != torch.float32 else rule_matrix
+        # Convert list back to tensor if needed
+        if isinstance(rule_matrix, list):
+            rule = torch.tensor(rule_matrix, dtype=torch.float32)
+        else:
+            rule = rule_matrix.float() if rule_matrix.dtype != torch.float32 else rule_matrix
 
         if rule.shape[0] != dim or rule.shape[1] != dim:
             if rule.shape[0] == rule.shape[1]:
@@ -511,11 +520,14 @@ def synthesize_primitives_from_rules(extracted_rules):
         rank = int((S.cumsum(0) / S.sum() < 0.95).sum().item()) + 1
         rank = max(1, rank)
 
+        # Convert tensor to list for JSON serialization
+        rule_list = rule.detach().cpu().tolist() if isinstance(rule, torch.Tensor) else rule
+
         synthesized.append({
             'mutation_name': f'add_synth_{idx}',
-            'rule_matrix': rule,
+            'rule_matrix': rule_list,
             'primitive_id': idx,
-            'rank': rank
+            'rank': int(rank)
         })
 
     return synthesized
